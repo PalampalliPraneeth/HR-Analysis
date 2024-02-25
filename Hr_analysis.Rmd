@@ -1,0 +1,244 @@
+---
+title: "HR Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Install all libraries 
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(tidyverse)
+library(janitor)
+library(readr)
+```
+                        Step 1: Collect Data
+
+# Load both the train & test datasets
+```{r}
+test <- read.csv("C:/Users/prane/OneDrive/Desktop/personal/Projects/HR Analysis/test.csv", header=FALSE, stringsAsFactors=TRUE)
+
+train <- read.csv("C:/Users/prane/OneDrive/Desktop/personal/Projects/HR Analysis/train.csv", header=FALSE, stringsAsFactors=TRUE)
+```
+
+# Understand the structure of the train data
+```{r}
+head(train)
+
+colnames(test) <- unlist(test[1, ])
+```
+# Remove the first row from the data frame
+```{r}
+test <- test[-1, ]
+```
+# Arrange the data frame by the employee_id column
+```{r}
+head(test,2)
+```
+# Understand the structure of the test data 
+```{r}
+head(train)
+
+colnames(train) <- unlist(train[1, ])
+```
+# Remove the first row (header row) from the data frame
+```{r}
+train <- train[-1, ]
+head(train,2)
+```
+# Arrange the data frame by the employee_id column
+train %>%
+    arrange(employee_id)
+```{r}
+train %>%
+    arrange(employee_id)
+```
+
+                          Step 2: Clean Data
+# Remove duplicates from train data 
+```{r}
+train <- distinct(train)
+
+```
+                       Step 3: Analyse and Visulaize Data
+```{r}
+summary(train)
+```
+# Visualize every variable with target variable
+
+# Education and Promotion
+```{r}
+train %>% 
+    group_by(education, is_promoted) %>%
+    summarise(n=n()) %>%
+    ggplot(aes(x=education, y=n, fill=is_promoted)) + geom_bar(stat='identity', position='dodge')
+```
+
+* In terms of education, promotion is focused on Bachelor's and above degree owners.
+
+# department and promotion 
+```{r}
+train %>%
+    group_by(department, is_promoted) %>%
+    summarise(n=n()) %>%
+    ggplot(aes(x=department, y=n, group=is_promoted, fill=is_promoted)) + geom_bar(stat='identity', position='dodge') + theme(axis.text.x= element_text(angle=45))
+  
+```
+
+# Gender and promotion 
+```{r}
+train %>% 
+    group_by(gender, is_promoted) %>%
+    summarise(n=n()) %>%
+    ggplot(aes(x=gender, y=n, fill=is_promoted)) + geom_bar(stat='identity', position='dodge')
+
+train %>% 
+    group_by(gender, is_promoted) %>%
+    summarise(n=n()) %>%
+    filter(is_promoted==1) %>%
+    ggplot(aes(x=gender, y=n, fill=is_promoted)) + geom_bar(stat='identity', position='dodge')
+```
+
+* The ratio of gender among employees is nearly identical to the ratio of gender among promotions.
+
+# recruitment_channel and promotion    
+```{r}
+train %>% 
+    group_by(recruitment_channel, is_promoted) %>% 
+    summarise(n=n()) %>% 
+    ggplot(aes(x=recruitment_channel, y=n, fill=is_promoted)) + geom_bar(stat='identity')
+
+train %>% 
+    group_by(recruitment_channel, is_promoted) %>% 
+    summarise(n=n()) %>% 
+    filter(is_promoted==1) %>%
+    ggplot(aes(x=recruitment_channel, y=n, fill=is_promoted)) + geom_bar(stat='identity')
+```
+
+* Recruitment channel is not decisive factor to be promoted.
+
+# no_of_trainings and promotion
+```{r}
+train %>%
+    group_by(no_of_trainings, is_promoted) %>%
+    summarise(n=n()) %>%
+    filter(is_promoted==1) %>%
+    ggplot(aes(x=no_of_trainings, y=n, fill=is_promoted)) + geom_bar(stat='identity',position='dodge')    
+
+# no_of_trainings and avg_training_score
+train %>%
+    summarise(no_of_trainings=no_of_trainings, avg_training_score=avg_training_score) %>%
+    ggplot(aes(x=no_of_trainings, y=avg_training_score, group=no_of_trainings, fill=no_of_trainings)) + geom_boxplot()
+    
+```
+
+* The higher you gets score in training session, The more chances you have in promotion opportunity.
+
+# Age and promotion
+```{r}
+
+train %>%
+    group_by(is_promoted) %>%
+    summarise(age=age, n=n()) %>%
+    arrange(age) %>%
+    ggplot(aes(x=is_promoted, y=age, group=is_promoted, fill=is_promoted)) + geom_boxplot()
+
+train %>%
+    group_by(is_promoted) %>%
+    summarise(age=age, n=n()) %>%
+    arrange(age) %>%
+    filter(is_promoted==1) %>%
+    ggplot(aes(x=is_promoted, y=age, group=is_promoted, fill=is_promoted)) + geom_violin()
+    
+
+```
+
+* Promotion is focused on early 30s, and the chance is drastically decreased for over mid 40 years employees.
+
+# previous year rating and promotion 
+```{r}
+   
+train %>% 
+    group_by(previous_year_rating, is_promoted) %>%
+    summarise(n=n()) %>%
+    ggplot(aes(x=is_promoted, y=n, group=previous_year_rating, fill=previous_year_rating)) + geom_bar(stat='identity', position='dodge')
+    
+
+```
+
+* Employees who got rated 1, 2 are merely promoted, but, in terms of ratio, employees who got rated 5 show highest promotion rate.
+
+# Length of service and promotion
+```{r}
+
+train %>%
+    group_by(is_promoted) %>%
+    summarise(length=length_of_service) %>%
+    #filter(is_promoted==1) %>%
+    ggplot(aes(x=is_promoted, y=length, group=is_promoted, fill=is_promoted)) + geom_violin()
+    
+
+    
+```
+
+* Most promotion is focused on employees under 10 year length of services.
+
+# KPIs met >80% and promotion
+```{r}
+colnames(train)[11] <- 'KPImet80'
+
+train %>%
+    group_by(KPImet80, is_promoted) %>%
+    summarise(n=n()) %>%
+    ggplot(aes(x=is_promoted, y=n, group=KPImet80, fill=KPImet80)) + geom_bar(stat='identity', position='dodge') 
+    
+```
+
+* When you met KPI requirements over 80 %, you make you chance of promotion twice.
+
+# awards_won and promotion
+```{r}
+
+colnames(train)[12] <- 'awards_won'
+
+train %>% 
+    group_by(awards_won, is_promoted) %>%
+    summarise(n=n()) %>%
+    ggplot(aes(x=is_promoted, y=n, group=awards_won, fill=awards_won)) + geom_bar(stat='identity', position='dodge')
+
+```
+
+* Awards record is not a decisive factor for employees to be promoted. 
+
+# avg_training_score and promotion
+```{r}
+train %>%
+    group_by(is_promoted) %>%
+    summarise(avg_training_score=avg_training_score) %>%
+    ggplot(aes(x=is_promoted, y=avg_training_score, group=is_promoted, fill=is_promoted)) + geom_boxplot()
+    
+```
+
+* To be promoted, achieving at least over 70 training scores is recommended.
+
+# Step 4 : Summary & Recommendation
+1) Among 8.5% of promotion chances, for employees want to be promoted, as an         analyst, I recommend 
+
+* To get Bachelor's degree or above.
+* To record over 70 % of training score on your the very first training session.
+* To notice sales & marketing, operations, procurement, technology, and analytics department have top 5     promotion spots.
+* To remind that most promotion chances are focused on 30 years old employees, and mid-40 is age limit.
+* To achieve at least 3 from previous year rating, and over 4 ratings has more chances.
+* To get over 80% of rating of KPI requirements.
+
+2) For employers want to promote competent employees in efficient system
+
+* Award is a irrelevant factor for promotion, so I recommend that setting a new and efficient system for    awards and promotion.
+* Salary is not on data. it caused a severe problem to analyze competence and compensations including       promotion and salary.
+* In recruitment channel, 'Other' has too many cases. I recommend to classify it in detail.
+* The less employees take training session, the more employees got promoted. I think training session is    changed into testing session. I recommend to training session must be focused on train employees, not     assess them.

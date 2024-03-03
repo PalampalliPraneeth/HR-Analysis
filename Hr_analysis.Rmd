@@ -54,10 +54,6 @@ head(train,2)
 # Arrange the data frame by the employee_id column
 train %>%
     arrange(employee_id)
-```{r}
-train %>%
-    arrange(employee_id)
-```
 
                           Step 2: Clean Data
 # Remove duplicates from train data 

@@ -6,8 +6,8 @@ This project focuses on analyzing HR data to gain insights into factors affectin
 
 ## Step 1: Collect Data
 
-### Load Data
-The project loads both the train and test datasets from CSV files.
+### Data
+The project utilizes two datasets: `train.csv` and `test.csv`. The `train.csv` dataset contains information about employees, including their attributes and whether they were promoted or not. The `test.csv` dataset is used for making predictions based on the insights gained from the analysis.
 
 ## Installation
 To run this analysis, you need to have R and the following libraries installed:

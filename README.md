@@ -9,6 +9,16 @@ This project focuses on analyzing HR data to gain insights into factors affectin
 ### Load Data
 The project loads both the train and test datasets from CSV files.
 
+## Installation
+To run this analysis, you need to have R and the following libraries installed:
+
+- `tidyverse`
+- `dplyr`
+- `ggplot2`
+- `lubridate`
+- `janitor`
+- `readr`
+
 ### Clean Data
 Duplicates are removed from the train data to ensure data integrity.
 

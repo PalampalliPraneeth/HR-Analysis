@@ -65,3 +65,6 @@ Visualizations are created to analyze various variables against promotion status
 
 This analysis provides valuable insights into factors influencing employee promotions. By understanding these factors, both employees and employers can make informed decisions to improve promotion rates and career growth opportunities.
 
+## 🤝 Contributing 
+Contributions to this project are welcome. If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+

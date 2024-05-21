@@ -1,10 +1,10 @@
-# HR Analysis
+# 📊 HR Analysis
 
-## Introduction
+## 📂 Introduction
 
 This project focuses on analyzing HR data to gain insights into factors affecting employee promotions. The dataset includes information such as education level, department, gender, recruitment channel, training scores, age, previous year ratings, KPIs met, awards won, and more.
 
-## Step 1: Collect Data
+## Step 1: Collect Data 🔍
 
 ### Data
 The project utilizes two datasets: `train.csv` and `test.csv`. The `train.csv` dataset contains information about employees, including their attributes and whether they were promoted or not. The `test.csv` dataset is used for making predictions based on the insights gained from the analysis.
@@ -22,7 +22,7 @@ To run this analysis, you need to have R and the following libraries installed:
 ### Clean Data
 Duplicates are removed from the train data to ensure data integrity.
 
-## Step 2: Analyze and Visualize Data
+## 📈 Step 2: Analyze and Visualize Data
 
 ### Variables vs. Promotion
 Visualizations are created to analyze various variables against promotion status, including:
@@ -38,7 +38,7 @@ Visualizations are created to analyze various variables against promotion status
 - KPIs met >80%
 - Awards won
 
-## Step 3: Summary & Recommendation
+## 💡 Step 3: Summary & Recommendation
 
 ### Summary
 - Promotion focus is on employees with Bachelor's degrees or above.
@@ -61,7 +61,7 @@ Visualizations are created to analyze various variables against promotion status
    - Consider introducing a more detailed classification for recruitment channels.
    - Ensure training sessions focus on skill development rather than assessment.
 
-## Conclusion
+## 🔚 Conclusion
 
 This analysis provides valuable insights into factors influencing employee promotions. By understanding these factors, both employees and employers can make informed decisions to improve promotion rates and career growth opportunities.
 

@@ -4,7 +4,7 @@
 
 This project focuses on analyzing HR data to gain insights into factors affecting employee promotions. The dataset includes information such as education level, department, gender, recruitment channel, training scores, age, previous year ratings, KPIs met, awards won, and more.
 
-## Step 1: Collect Data 🔍
+## 🔍 Step 1: Collect Data
 
 ### Data
 The project utilizes two datasets: `train.csv` and `test.csv`. The `train.csv` dataset contains information about employees, including their attributes and whether they were promoted or not. The `test.csv` dataset is used for making predictions based on the insights gained from the analysis.

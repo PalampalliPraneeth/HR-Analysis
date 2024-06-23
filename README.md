@@ -60,11 +60,11 @@ Visualizations are created to analyze various variables against promotion status
    - Reevaluate the role of awards in the promotion system.
    - Consider introducing a more detailed classification for recruitment channels.
    - Ensure training sessions focus on skill development rather than assessment.
-
-## 🔚 Conclusion
-
-This analysis provides valuable insights into factors influencing employee promotions. By understanding these factors, both employees and employers can make informed decisions to improve promotion rates and career growth opportunities.
-
+     
 ## 🤝 Contributing 
 Contributions to this project are welcome. If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+## 🔚 Conclusion
+This analysis provides valuable insights into factors influencing employee promotions. By understanding these factors, both employees and employers can make informed decisions to improve promotion rates and career growth opportunities.
+
 
